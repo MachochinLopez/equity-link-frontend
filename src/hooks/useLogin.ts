@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "@/lib/api/axios";
 import { notifications } from "@/lib/services/notifications";
-import { useAuth } from "@/lib/providers/AuthProvider";
+import { useAuth, User } from "@/lib/providers/AuthProvider";
 import { AxiosError } from "axios";
 
 interface LoginResponse {
@@ -22,7 +22,7 @@ export function useLogin() {
       return response.data;
     },
     onSuccess: (data) => {
-      login(data.token, data.user);
+      login(data.token, data.user as User);
     },
     onError: (error: AxiosError<{ message: string }>) => {
       const errorMessage =
