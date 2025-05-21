@@ -5,10 +5,17 @@ import { useState } from "react";
 import { Spinner } from "@/components/common/Spinner";
 import { UserTable } from "@/components/users/UserTable";
 import { UserTablePagination } from "@/components/users/UserTablePagination";
+import { useRouter } from "next/navigation";
+import { StyledButton } from "@/components/common/StyledButton";
 
 export default function UsersPage() {
   const [page, setPage] = useState(1);
   const { data, isLoading } = useGetUsers(page);
+  const router = useRouter();
+
+  const handleCreateUser = () => {
+    router.push("/users/create");
+  };
 
   if (isLoading) {
     return (
@@ -20,7 +27,14 @@ export default function UsersPage() {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Usuarios</h1>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Usuarios</h1>
+        <div className="flex justify-end">
+          <StyledButton onClick={handleCreateUser} className="w-24">
+            Crear Usuario
+          </StyledButton>
+        </div>
+      </div>
 
       <UserTable data={data?.data || []} />
 

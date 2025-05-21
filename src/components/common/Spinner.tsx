@@ -1,7 +1,7 @@
 interface SpinnerProps {
   size?: "sm" | "md" | "lg";
   className?: string;
-  color?: string;
+  color?: "white" | "primary";
 }
 
 export function Spinner({
@@ -15,9 +15,14 @@ export function Spinner({
     lg: "w-6 h-6",
   };
 
+  const colorClasses = {
+    white: "border-white/30 border-t-white",
+    primary: "border-primary/30 border-t-primary",
+  };
+
   return (
     <div
-      className={`${sizeClasses[size]} border-2 border-white/30 border-t-${color} rounded-full animate-spin ${className}`}
+      className={`${sizeClasses[size]} border-2 ${colorClasses[color]} rounded-full animate-spin ${className}`}
     />
   );
 }
