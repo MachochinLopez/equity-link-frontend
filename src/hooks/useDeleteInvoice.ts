@@ -1,32 +1,31 @@
+"use client";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/lib/api/axios";
 import { notifications } from "@/lib/services/notifications";
 
-interface CreateRoleData {
-  name: string;
-  permissions: string[];
-}
-
-interface CreateRoleResponse {
+interface DeleteInvoiceResponse {
   message: string;
 }
 
-export function useCreateRole() {
+export function useDeleteInvoice() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: CreateRoleData) => {
-      const response = await api.post<CreateRoleResponse>("/roles", data);
+    mutationFn: async (invoiceId: string) => {
+      const response = await api.delete<DeleteInvoiceResponse>(
+        `/invoices/${invoiceId}`
+      );
       return response.data;
     },
     onSuccess: (data) => {
       notifications.success(data.message);
-      queryClient.invalidateQueries({ queryKey: ["roles"] });
+      queryClient.invalidateQueries({ queryKey: ["invoices"] });
     },
     onError: (error: any) => {
       const errorMessage =
         error.response?.data?.message ||
-        "No se pudo crear el rol. Intenta nuevamente.";
+        "No se pudo eliminar la factura. Intenta nuevamente.";
       notifications.error(errorMessage);
     },
   });

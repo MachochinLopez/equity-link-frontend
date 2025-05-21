@@ -1,22 +1,41 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { PermissionFormData } from "@/components/permissions/PermissionForm";
 import api from "@/lib/api/axios";
+import { notifications } from "@/lib/services/notifications";
 
 interface UpdatePermissionParams {
-  id: string;
-  data: PermissionFormData;
+  id: number;
+  data: {
+    name: string;
+    description: string;
+  };
+}
+
+interface UpdatePermissionResponse {
+  message: string;
 }
 
 export const useUpdatePermission = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, data }: UpdatePermissionParams) =>
-      api.put(`/permissions/${id}`, data).then((res) => res.data),
-    onSuccess: () => {
+    mutationFn: async ({ id, data }: UpdatePermissionParams) => {
+      const response = await api.put<UpdatePermissionResponse>(
+        `/permissions/${id}`,
+        data
+      );
+      return response.data;
+    },
+    onSuccess: (data) => {
+      notifications.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["permissions"] });
       queryClient.invalidateQueries({ queryKey: ["roles-and-permissions"] });
       queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+    onError: (error: any) => {
+      const errorMessage =
+        error.response?.data?.message ||
+        "No se pudo actualizar el permiso. Intenta nuevamente.";
+      notifications.error(errorMessage);
     },
   });
 };

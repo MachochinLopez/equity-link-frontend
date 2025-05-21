@@ -12,7 +12,11 @@ interface CreateUserData {
 
 interface CreateUserResponse {
   message: string;
-  temporary_password: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+  };
 }
 
 export const useCreateUser = (
@@ -26,7 +30,7 @@ export const useCreateUser = (
       return response.data;
     },
     onSuccess: (data) => {
-      notifications.success("Usuario creado exitosamente");
+      notifications.success(data.message);
       if (onUserCreated) {
         onUserCreated(data);
       } else {

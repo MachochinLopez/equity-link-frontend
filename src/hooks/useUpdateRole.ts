@@ -8,16 +8,20 @@ interface UpdateRoleData {
   permissions: string[];
 }
 
+interface UpdateRoleResponse {
+  message: string;
+}
+
 export function useUpdateRole() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async ({ id, data }: { id: number; data: UpdateRoleData }) => {
-      const response = await api.put<Role>(`/roles/${id}`, data);
+      const response = await api.put<UpdateRoleResponse>(`/roles/${id}`, data);
       return response.data;
     },
-    onSuccess: () => {
-      notifications.success("Rol actualizado exitosamente");
+    onSuccess: (data) => {
+      notifications.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["roles"] });
       queryClient.invalidateQueries({ queryKey: ["roles-and-permissions"] });
     },

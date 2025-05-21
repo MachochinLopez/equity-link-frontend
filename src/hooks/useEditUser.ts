@@ -9,16 +9,23 @@ interface EditUserData {
   extra_permissions: string[];
 }
 
+interface EditUserResponse {
+  message: string;
+}
+
 export const useEditUser = (userId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (data: EditUserData) => {
-      const response = await api.put(`/users/${userId}`, data);
+      const response = await api.put<EditUserResponse>(
+        `/users/${userId}`,
+        data
+      );
       return response.data;
     },
-    onSuccess: () => {
-      notifications.success("Usuario actualizado exitosamente");
+    onSuccess: (data) => {
+      notifications.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
     onError: (error: any) => {

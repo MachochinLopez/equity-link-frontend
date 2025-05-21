@@ -14,8 +14,8 @@ export function useDeleteUser() {
       const response = await api.delete<DeleteUserResponse>(`/users/${userId}`);
       return response.data;
     },
-    onSuccess: () => {
-      notifications.success("Usuario eliminado exitosamente");
+    onSuccess: (data) => {
+      notifications.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
     onError: (error: any) => {

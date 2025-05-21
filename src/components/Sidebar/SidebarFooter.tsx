@@ -35,9 +35,9 @@ const SidebarFooter = () => {
       <hr className="my-2 border-white" />
       <button
         onClick={handleLogout}
-        className="w-full px-4 py-2 text-left text-white hover:bg-white/10 rounded"
+        className="w-full px-4 py-2 text-left text-white hover:bg-white/10 hover:cursor-pointer rounded"
       >
-        Logout
+        Cerrar sesión
       </button>
     </div>
   );

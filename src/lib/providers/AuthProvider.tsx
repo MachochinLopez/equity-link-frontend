@@ -48,7 +48,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("user", JSON.stringify(user));
     setIsAuthenticated(true);
     setUser(user);
-    notifications.success("Login successful!");
+    notifications.success("Login exitoso");
     router.push("/dashboard");
   };
 

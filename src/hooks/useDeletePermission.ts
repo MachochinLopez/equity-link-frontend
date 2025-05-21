@@ -16,8 +16,8 @@ export function useDeletePermission() {
       );
       return response.data;
     },
-    onSuccess: () => {
-      notifications.success("Permiso eliminado exitosamente");
+    onSuccess: (data) => {
+      notifications.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["permissions"] });
       queryClient.invalidateQueries({ queryKey: ["roles-and-permissions"] });
       queryClient.invalidateQueries({ queryKey: ["users"] });

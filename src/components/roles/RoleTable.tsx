@@ -19,8 +19,8 @@ export function RoleTable({ data }: RoleTableProps) {
 
   const handleDelete = async (role: Role) => {
     try {
-      await deleteRole.mutateAsync(role.id);
-      notifications.success("Rol eliminado correctamente");
+      const response = await deleteRole.mutateAsync(role.id);
+      notifications.success(response.message);
     } catch (error) {
       notifications.error("Error al eliminar el rol");
     }

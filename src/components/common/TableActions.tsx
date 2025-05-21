@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Swal from "sweetalert2";
 import { useState } from "react";
