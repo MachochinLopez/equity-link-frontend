@@ -1,9 +1,14 @@
 interface SpinnerProps {
   size?: "sm" | "md" | "lg";
   className?: string;
+  color?: string;
 }
 
-export function Spinner({ size = "md", className = "" }: SpinnerProps) {
+export function Spinner({
+  size = "md",
+  className = "",
+  color = "white",
+}: SpinnerProps) {
   const sizeClasses = {
     sm: "w-4 h-4",
     md: "w-5 h-5",
@@ -12,7 +17,7 @@ export function Spinner({ size = "md", className = "" }: SpinnerProps) {
 
   return (
     <div
-      className={`${sizeClasses[size]} border-2 border-white/30 border-t-white rounded-full animate-spin ${className}`}
+      className={`${sizeClasses[size]} border-2 border-white/30 border-t-${color} rounded-full animate-spin ${className}`}
     />
   );
 }
