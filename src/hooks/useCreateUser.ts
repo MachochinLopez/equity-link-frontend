@@ -18,6 +18,7 @@ interface CreateUserResponse {
     name: string;
     email: string;
   };
+  temporary_password: string;
 }
 
 export const useCreateUser = (
