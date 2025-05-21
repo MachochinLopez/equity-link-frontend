@@ -1,13 +1,6 @@
 import api from "@/lib/api/axios";
 import { useQuery } from "@tanstack/react-query";
-
-interface Role {
-  id: number;
-  name: string;
-  description: string;
-  created_at: string;
-  updated_at: string;
-}
+import { Role } from "@/types/role";
 
 interface GetRolesResponse {
   data: Role[];
