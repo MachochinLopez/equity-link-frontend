@@ -10,6 +10,8 @@ export const useCreatePermission = () => {
       api.post("/permissions", data).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["permissions"] });
+      queryClient.invalidateQueries({ queryKey: ["roles-and-permissions"] });
+      queryClient.invalidateQueries({ queryKey: ["users"] });
     },
   });
 };

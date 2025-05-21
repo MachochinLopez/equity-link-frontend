@@ -4,6 +4,7 @@ import { StyledButton } from "@/components/common/StyledButton";
 import { StyledCheckbox } from "@/components/common/StyledCheckbox";
 import { useGetPermissions } from "@/hooks/useGetPermissions";
 import { Spinner } from "@/components/common/Spinner";
+import { Permission } from "@/types/role";
 
 export interface RoleFormData {
   name: string;
@@ -35,7 +36,7 @@ export function RoleForm({
     defaultValues: initialData,
   });
 
-  const { data: permissionsData, isLoading } = useGetPermissions();
+  const { data: permissionsData, isLoading } = useGetPermissions(1, true);
   const currentPermissions = watch("permissions") || [];
 
   if (isLoading) {
@@ -64,7 +65,7 @@ export function RoleForm({
           Permisos
         </label>
         <div className="grid grid-cols-2 gap-4">
-          {permissionsData?.map((permission) => (
+          {permissionsData?.data.map((permission: Permission) => (
             <div key={permission.id} className="flex items-center space-x-2">
               <StyledCheckbox
                 id={permission.name}

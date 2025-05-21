@@ -15,6 +15,8 @@ export const useUpdatePermission = () => {
       api.put(`/permissions/${id}`, data).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["permissions"] });
+      queryClient.invalidateQueries({ queryKey: ["roles-and-permissions"] });
+      queryClient.invalidateQueries({ queryKey: ["users"] });
     },
   });
 };
