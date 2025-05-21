@@ -10,17 +10,28 @@ interface CreateUserData {
   extra_permissions: string[];
 }
 
-export const useCreateUser = () => {
+interface CreateUserResponse {
+  message: string;
+  temporary_password: string;
+}
+
+export const useCreateUser = (
+  onUserCreated?: (data: CreateUserResponse) => void
+) => {
   const router = useRouter();
 
   return useMutation({
     mutationFn: async (data: CreateUserData) => {
-      const response = await api.post("/users", data);
+      const response = await api.post<CreateUserResponse>("/users", data);
       return response.data;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       notifications.success("Usuario creado exitosamente");
-      router.push("/users");
+      if (onUserCreated) {
+        onUserCreated(data);
+      } else {
+        router.push("/users");
+      }
     },
     onError: (error: any) => {
       const errorMessage =
