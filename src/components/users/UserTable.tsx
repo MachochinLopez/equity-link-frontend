@@ -1,11 +1,9 @@
-import {
-  useReactTable,
-  getCoreRowModel,
-  flexRender,
-  createColumnHelper,
-} from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { User } from "@/types/user";
-import { UserTableActions } from "./UserTableActions";
+import { DataTable } from "../common/DataTable";
+import { TableActions } from "../common/TableActions";
+import { useDeleteUser } from "@/hooks/useDeleteUser";
+import { EditUserModal } from "./EditUserModal";
 
 interface UserTableProps {
   data: User[];
@@ -13,6 +11,7 @@ interface UserTableProps {
 
 export function UserTable({ data }: UserTableProps) {
   const columnHelper = createColumnHelper<User>();
+  const deleteUser = useDeleteUser();
 
   const columns = [
     columnHelper.accessor("name", {
@@ -34,51 +33,15 @@ export function UserTable({ data }: UserTableProps) {
     columnHelper.display({
       id: "actions",
       header: "Acciones",
-      cell: (info) => <UserTableActions user={info.row.original} />,
+      cell: (info) => (
+        <TableActions
+          item={info.row.original}
+          onDelete={(user) => deleteUser.mutate(user.id)}
+          editModal={EditUserModal}
+        />
+      ),
     }),
   ];
 
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
-
-  return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200 border border-primary rounded-lg ">
-        <thead className="bg-gray-50 border-b border-primary">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th
-                  key={header.id}
-                  className="px-6 py-3 text-left text-xs font-bold text-primary uppercase tracking-wider"
-                >
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td
-                  key={cell.id}
-                  className="px-6 py-4 whitespace-nowrap text-sm text-primary"
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+  return <DataTable data={data} columns={columns} />;
 }

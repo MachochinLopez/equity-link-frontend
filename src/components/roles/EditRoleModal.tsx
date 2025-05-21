@@ -1,21 +1,21 @@
-import { User } from "@/types/user";
-import { useEditUser } from "@/hooks/useEditUser";
-import { UserForm, UserFormData } from "./UserForm";
 import { useEffect } from "react";
 import Image from "next/image";
+import { RoleForm, RoleFormData } from "./RoleForm";
+import { useUpdateRole } from "@/hooks/useUpdateRole";
+import { Role } from "@/types/role";
 
-interface EditUserModalProps {
-  item: User;
+interface EditRoleModalProps {
+  item: Role;
   isOpen: boolean;
   onClose: () => void;
 }
 
-export function EditUserModal({
-  item: user,
+export function EditRoleModal({
+  item: role,
   isOpen,
   onClose,
-}: EditUserModalProps) {
-  const editUser = useEditUser(user.id);
+}: EditRoleModalProps) {
+  const updateRole = useUpdateRole();
 
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
@@ -35,19 +35,20 @@ export function EditUserModal({
 
   if (!isOpen) return null;
 
-  const initialData: UserFormData = {
-    name: user.name,
-    email: user.email,
-    role: user.role_names[0],
-    extra_permissions: user.permission_names,
+  const initialData: RoleFormData = {
+    name: role.name,
+    permissions: role.permissions,
   };
 
-  const onSubmit = (data: UserFormData) => {
-    editUser.mutate(data, {
-      onSuccess: () => {
-        onClose();
-      },
-    });
+  const onSubmit = (data: RoleFormData) => {
+    updateRole.mutate(
+      { id: role.id, data },
+      {
+        onSuccess: () => {
+          onClose();
+        },
+      }
+    );
   };
 
   return (
@@ -70,11 +71,11 @@ export function EditUserModal({
             height={20}
           />
         </button>
-        <h2 className="text-2xl font-bold mb-6 pr-8">Editar Usuario</h2>
-        <UserForm
+        <h2 className="text-2xl font-bold mb-6 pr-8">Editar Rol</h2>
+        <RoleForm
           initialData={initialData}
           onSubmit={onSubmit}
-          isSubmitting={editUser.isPending}
+          isSubmitting={updateRole.isPending}
           submitButtonText="Guardar"
           submitButtonLoadingText="Guardando..."
         />

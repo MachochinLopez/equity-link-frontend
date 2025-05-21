@@ -5,6 +5,13 @@ export const defaultMenuConfig: MenuConfig = {
     { href: "/dashboard", label: "Dashboard" },
     { href: "/invoices", label: "Facturas", permission: "view-invoices" },
     { href: "/users", label: "Usuarios", permission: "view-user-management" },
+    {
+      href: "/users/create",
+      label: "Crear Usuario",
+      permission: "create-user",
+    },
+    { href: "/roles", label: "Roles", permission: "list-roles" },
+    { href: "/roles/create", label: "Crear Rol", permission: "create-role" },
   ],
 };
 

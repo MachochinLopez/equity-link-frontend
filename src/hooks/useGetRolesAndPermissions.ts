@@ -1,14 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "@/lib/api/axios";
-
-interface Permission {
-  id: number;
-  name: string;
-  permissions: string[];
-}
+import { Role } from "@/types/role";
 
 interface RolesResponse {
-  data: Permission[];
+  data: Role[];
   current_page: number;
   current_page_url: string;
   first_page_url: string;

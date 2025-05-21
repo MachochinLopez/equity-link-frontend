@@ -1,6 +1,6 @@
 import { TablePagination } from "../common/TablePagination";
 
-interface UserTablePaginationProps {
+interface RoleTablePaginationProps {
   currentPage: number;
   from: number;
   to: number;
@@ -10,6 +10,6 @@ interface UserTablePaginationProps {
   onPageChange: (page: number) => void;
 }
 
-export function UserTablePagination(props: UserTablePaginationProps) {
+export function RoleTablePagination(props: RoleTablePaginationProps) {
   return <TablePagination {...props} variant="detailed" />;
 }
