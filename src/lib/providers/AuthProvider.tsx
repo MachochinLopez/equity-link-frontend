@@ -10,7 +10,7 @@ import {
 import { useRouter } from "next/navigation";
 import { notifications } from "@/lib/services/notifications";
 
-interface User {
+export interface User {
   id: number;
   email: string;
   name: string;
