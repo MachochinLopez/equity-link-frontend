@@ -1,8 +1,7 @@
 import { InputHTMLAttributes, forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
-export interface StyledCheckboxProps
-  extends InputHTMLAttributes<HTMLInputElement> {}
+export type StyledCheckboxProps = InputHTMLAttributes<HTMLInputElement>;
 
 export const StyledCheckbox = forwardRef<HTMLInputElement, StyledCheckboxProps>(
   ({ className, type = "checkbox", ...props }, ref) => {
@@ -21,3 +20,5 @@ export const StyledCheckbox = forwardRef<HTMLInputElement, StyledCheckboxProps>(
     );
   }
 );
+
+StyledCheckbox.displayName = "StyledCheckbox";

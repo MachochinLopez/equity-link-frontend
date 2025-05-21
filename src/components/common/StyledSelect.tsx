@@ -34,3 +34,5 @@ export const StyledSelect = forwardRef<HTMLSelectElement, StyledSelectProps>(
     );
   }
 );
+
+StyledSelect.displayName = "StyledSelect";

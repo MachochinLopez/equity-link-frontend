@@ -1,6 +1,7 @@
 import api from "@/lib/api/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { notifications } from "@/lib/services/notifications";
+import { AxiosError } from "axios";
 
 interface EditUserData {
   name: string;
@@ -28,7 +29,7 @@ export const useEditUser = (userId: number) => {
       notifications.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
-    onError: (error: any) => {
+    onError: (error: AxiosError<{ message: string }>) => {
       const errorMessage =
         error.response?.data?.message ||
         "No se pudo actualizar el usuario. Intenta nuevamente.";

@@ -2,6 +2,7 @@ import { useCreateRole } from "@/hooks/useCreateRole";
 import { RoleForm, RoleFormData } from "./RoleForm";
 import { useRouter } from "next/navigation";
 import { notifications } from "@/lib/services/notifications";
+import { AxiosError } from "axios";
 
 export const CreateRoleForm = () => {
   const router = useRouter();
@@ -13,7 +14,7 @@ export const CreateRoleForm = () => {
         notifications.success("Rol creado exitosamente");
         router.push("/roles");
       },
-      onError: (error: any) => {
+      onError: (error: AxiosError<{ message: string }>) => {
         const errorMessage =
           error.response?.data?.message ||
           "No se pudo crear el rol. Intenta nuevamente.";

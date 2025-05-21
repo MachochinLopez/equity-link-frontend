@@ -2,6 +2,7 @@ import api from "@/lib/api/axios";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { notifications } from "@/lib/services/notifications";
+import { AxiosError } from "axios";
 
 interface CreateUserData {
   name: string;
@@ -37,7 +38,7 @@ export const useCreateUser = (
         router.push("/users");
       }
     },
-    onError: (error: any) => {
+    onError: (error: AxiosError<{ message: string }>) => {
       const errorMessage =
         error.response?.data?.message ||
         "No se pudo crear el usuario. Intenta nuevamente.";

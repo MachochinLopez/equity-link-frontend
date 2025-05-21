@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import api from "@/lib/api/axios";
 import { notifications } from "@/lib/services/notifications";
 import { useAuth } from "@/lib/providers/AuthProvider";
+import { AxiosError } from "axios";
 
 interface LoginResponse {
   token: string;
@@ -23,7 +24,7 @@ export function useLogin() {
     onSuccess: (data) => {
       login(data.token, data.user);
     },
-    onError: (error: any) => {
+    onError: (error: AxiosError<{ message: string }>) => {
       const errorMessage =
         error.response?.data?.message ||
         "No se pudo iniciar sesión. Intenta nuevamente.";

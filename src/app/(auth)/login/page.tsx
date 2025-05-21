@@ -7,10 +7,12 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex">
       <div className="lg:flex lg:w-3/5 md:w-1/2 w-0 items-center justify-center">
-        <img
+        <Image
           src="https://plus.unsplash.com/premium_photo-1681487769650-a0c3fbaed85a?q=80&w=3055&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Left Image"
-          className="object-cover w-full h-full"
+          fill
+          className="object-cover"
+          priority
         />
       </div>
 

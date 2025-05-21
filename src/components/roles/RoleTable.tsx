@@ -9,7 +9,7 @@ import { useGetRolesAndPermissions } from "@/hooks/useGetRolesAndPermissions";
 import { Spinner } from "@/components/common/Spinner";
 
 interface RoleTableProps {
-  data: any[];
+  data: Role[];
 }
 
 export function RoleTable({ data }: RoleTableProps) {
@@ -21,13 +21,14 @@ export function RoleTable({ data }: RoleTableProps) {
     try {
       const response = await deleteRole.mutateAsync(role.id);
       notifications.success(response.message);
-    } catch (error) {
+    } catch {
       notifications.error("Error al eliminar el rol");
     }
   };
 
   const columns = [
-    columnHelper.accessor("name", {
+    columnHelper.accessor((row) => row.name, {
+      id: "name",
       header: "Nombre",
       cell: (info) => info.getValue(),
     }),

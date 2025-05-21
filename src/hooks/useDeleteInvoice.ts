@@ -3,6 +3,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/lib/api/axios";
 import { notifications } from "@/lib/services/notifications";
+import { AxiosError } from "axios";
 
 interface DeleteInvoiceResponse {
   message: string;
@@ -22,7 +23,7 @@ export function useDeleteInvoice() {
       notifications.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["invoices"] });
     },
-    onError: (error: any) => {
+    onError: (error: AxiosError<{ message: string }>) => {
       const errorMessage =
         error.response?.data?.message ||
         "No se pudo eliminar la factura. Intenta nuevamente.";

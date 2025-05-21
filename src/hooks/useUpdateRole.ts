@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Role } from "@/types/role";
 import api from "@/lib/api/axios";
 import { notifications } from "@/lib/services/notifications";
+import { AxiosError } from "axios";
 
 interface UpdateRoleData {
   name: string;
@@ -25,7 +25,7 @@ export function useUpdateRole() {
       queryClient.invalidateQueries({ queryKey: ["roles"] });
       queryClient.invalidateQueries({ queryKey: ["roles-and-permissions"] });
     },
-    onError: (error: any) => {
+    onError: (error: AxiosError<{ message: string }>) => {
       const errorMessage =
         error.response?.data?.message ||
         "No se pudo actualizar el rol. Intenta nuevamente.";

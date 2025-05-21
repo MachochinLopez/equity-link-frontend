@@ -2,6 +2,7 @@ import { useCreatePermission } from "@/hooks/useCreatePermission";
 import { PermissionForm, PermissionFormData } from "./PermissionForm";
 import { useRouter } from "next/navigation";
 import { notifications } from "@/lib/services/notifications";
+import { AxiosError } from "axios";
 
 export const CreatePermissionForm = () => {
   const router = useRouter();
@@ -13,7 +14,7 @@ export const CreatePermissionForm = () => {
         notifications.success("Permiso creado exitosamente");
         router.push("/permissions");
       },
-      onError: (error: any) => {
+      onError: (error: AxiosError<{ message: string }>) => {
         const errorMessage =
           error.response?.data?.message ||
           "No se pudo crear el permiso. Intenta nuevamente.";
