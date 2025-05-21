@@ -1,3 +1,5 @@
+import { Spinner } from "./Spinner";
+
 interface StyledButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
@@ -16,7 +18,7 @@ export function StyledButton({
       className={`bg-primary hover:bg-primary/80 hover:cursor-pointer flex justify-center py-3 px-4 rounded-md text-sm font-medium text-white w-full ${className}`}
       {...props}
     >
-      {isLoading ? "Cargando..." : children}
+      {isLoading ? <Spinner size="sm" /> : children}
     </button>
   );
 }

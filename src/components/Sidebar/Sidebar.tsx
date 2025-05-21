@@ -1,13 +1,13 @@
+"use client";
+
 import React from "react";
 import SidebarHeader from "./SidebarHeader";
 import SidebarItem from "./SidebarItem";
 import SidebarFooter from "./SidebarFooter";
+import { useMenu } from "@/hooks/useMenu";
 
 const Sidebar = () => {
-  const menuItems = [
-    { href: "/dashboard", label: "Facturas" },
-    { href: "/dashboard/profile", label: "Usuarios" },
-  ];
+  const { menuItems } = useMenu();
 
   return (
     <aside className="bg-primary w-64 h-fulll shadow-md flex flex-col">
