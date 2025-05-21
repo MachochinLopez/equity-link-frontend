@@ -28,6 +28,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     setIsAuthenticated(document.cookie.includes("auth-token="));
@@ -36,6 +37,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = (token: string, user: User) => {
     document.cookie = `auth-token=${token}; path=/`;
     setIsAuthenticated(true);
+    setUser(user);
     notifications.success("Login successful!");
     router.push("/dashboard");
   };
@@ -43,11 +45,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     document.cookie = "auth-token=; max-age=0; path=/";
     setIsAuthenticated(false);
+    setUser(null);
     router.push("/login");
   };
 
   const value = {
-    user: null,
+    user,
     isAuthenticated,
     login,
     logout,

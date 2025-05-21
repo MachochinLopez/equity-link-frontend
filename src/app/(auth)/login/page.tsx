@@ -22,7 +22,7 @@ export default function LoginPage() {
           height={100}
           className="w-24 h-24 mx-auto"
         />
-        <h2 className="text-3xl font-bold text-center mb-8">Iniciar sesión</h2>
+        <h2 className="text-3xl font-bold text-center mb-8">Facturas</h2>
         <LoginForm />
       </div>
     </div>

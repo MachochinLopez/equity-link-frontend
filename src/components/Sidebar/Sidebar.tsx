@@ -10,9 +10,9 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="bg-primary w-64 min-h-screen shadow-md flex flex-col">
+    <aside className="bg-primary w-64 h-fulll shadow-md flex flex-col">
       <SidebarHeader />
-      <nav className="mt-4">
+      <nav className="mt-4 p-5 flex-grow">
         <ul className="space-y-2">
           {menuItems.map((item) => (
             <SidebarItem key={item.href} href={item.href} label={item.label} />
