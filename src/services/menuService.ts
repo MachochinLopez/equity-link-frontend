@@ -12,6 +12,12 @@ export const defaultMenuConfig: MenuConfig = {
     },
     { href: "/roles", label: "Roles", permission: "list-roles" },
     { href: "/roles/create", label: "Crear Rol", permission: "create-role" },
+    { href: "/permissions", label: "Permisos", permission: "list-permissions" },
+    {
+      href: "/permissions/create",
+      label: "Crear Permiso",
+      permission: "create-permission",
+    },
   ],
 };
 

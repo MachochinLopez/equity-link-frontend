@@ -9,7 +9,7 @@ import { useGetRolesAndPermissions } from "@/hooks/useGetRolesAndPermissions";
 import { Spinner } from "@/components/common/Spinner";
 
 interface RoleTableProps {
-  data: Role[];
+  data: any[];
 }
 
 export function RoleTable({ data }: RoleTableProps) {

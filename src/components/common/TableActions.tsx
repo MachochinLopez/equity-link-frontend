@@ -2,7 +2,7 @@ import Image from "next/image";
 import Swal from "sweetalert2";
 import { useState } from "react";
 
-interface TableActionsProps<T extends { id: number }> {
+interface TableActionsProps<T extends { id: string | number }> {
   item: T;
   onEdit?: (item: T) => void;
   onDelete?: (item: T) => void;
@@ -13,7 +13,7 @@ interface TableActionsProps<T extends { id: number }> {
   }>;
 }
 
-export function TableActions<T extends { id: number }>({
+export function TableActions<T extends { id: string | number }>({
   item,
   onEdit,
   onDelete,

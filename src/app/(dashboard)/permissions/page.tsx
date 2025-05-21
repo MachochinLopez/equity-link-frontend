@@ -1,20 +1,20 @@
 "use client";
 
-import { useGetRoles } from "@/hooks/useGetRoles";
-import { useState } from "react";
+import { useGetPermissions } from "@/hooks/useGetPermissions";
 import { Spinner } from "@/components/common/Spinner";
-import { RoleTable } from "@/components/roles/RoleTable";
+import { PermissionTable } from "@/components/permissions/PermissionTable";
+import { PermissionTablePagination } from "@/components/permissions/PermissionTablePagination";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { StyledButton } from "@/components/common/StyledButton";
-import { RoleTablePagination } from "@/components/roles/RoleTablePagination";
 
-export default function RolesPage() {
+export default function PermissionsPage() {
   const [page, setPage] = useState(1);
-  const { data, isLoading } = useGetRoles(page);
+  const { data, isLoading } = useGetPermissions(page);
   const router = useRouter();
 
-  const handleCreateRole = () => {
-    router.push("/roles/create");
+  const handleCreatePermission = () => {
+    router.push("/permissions/create");
   };
 
   if (isLoading) {
@@ -28,17 +28,17 @@ export default function RolesPage() {
   return (
     <div className="p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Roles</h1>
+        <h1 className="text-2xl font-bold">Permissions</h1>
         <div className="flex justify-end">
-          <StyledButton onClick={handleCreateRole} className="w-24">
-            Crear Rol
+          <StyledButton onClick={handleCreatePermission} className="w-24">
+            Crear Permiso
           </StyledButton>
         </div>
       </div>
 
-      <RoleTable data={data?.data || []} />
+      <PermissionTable data={data?.data || []} />
 
-      <RoleTablePagination
+      <PermissionTablePagination
         currentPage={data?.current_page || 1}
         from={data?.from || 0}
         to={data?.to || 0}
