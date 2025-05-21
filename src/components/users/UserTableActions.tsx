@@ -59,7 +59,7 @@ export function UserTableActions({ user }: UserTableActionsProps) {
       </div>
 
       <EditUserModal
-        user={user}
+        item={user}
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
       />
