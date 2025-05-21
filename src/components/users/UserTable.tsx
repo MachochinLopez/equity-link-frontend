@@ -46,14 +46,14 @@ export function UserTable({ data }: UserTableProps) {
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
+      <table className="min-w-full divide-y divide-gray-200 border border-primary rounded-lg ">
+        <thead className="bg-gray-50 border-b border-primary">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-bold text-primary uppercase tracking-wider"
                 >
                   {flexRender(
                     header.column.columnDef.header,
@@ -70,7 +70,7 @@ export function UserTable({ data }: UserTableProps) {
               {row.getVisibleCells().map((cell) => (
                 <td
                   key={cell.id}
-                  className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                  className="px-6 py-4 whitespace-nowrap text-sm text-primary"
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>

@@ -10,6 +10,6 @@ export const hasRoutePermission = (
   user: User | null
 ): boolean => {
   const requiredPermission = routePermissions[path];
-  if (!requiredPermission) return true; // Si no hay permiso requerido, permitir acceso
+  if (!requiredPermission) return true;
   return user?.permission_names?.includes(requiredPermission) ?? false;
 };
