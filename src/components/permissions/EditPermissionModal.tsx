@@ -41,7 +41,7 @@ export function EditPermissionModal({
 
   const onSubmit = (data: PermissionFormData) => {
     updatePermission.mutate(
-      { id: permission.id, data },
+      { id: permission.id, data: { ...data, description: "" } },
       {
         onSuccess: () => {
           onClose();
