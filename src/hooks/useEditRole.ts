@@ -1,5 +1,5 @@
+import api from "@/lib/api/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/lib/api";
 
 interface EditRoleData {
   name: string;
